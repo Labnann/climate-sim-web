@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+        <meta content="utf-8" http-equiv="encoding">
+    </head>
+
+<div class="floatable">
+    <a class="menu-btn" id="menu-button">
+        <img src="https://static-00.iconduck.com/assets.00/hamburger-menu-icon-512x464-8u2owc1t.png"
+             class="btn-img" alt="Menu">
+    </a>
+
+
+    <div class="menu" id="menu">
+        <table>
+            <tr>
+                <td>Year</td>
+                <td><input id="year_range" type="range" min="1900" value="2000" max="2100"></td>
+                <td id="year_value">2000 AD</td>
+
+            </tr>
+            <tr>
+                <td>Avg. Temperature Offset</td>
+                <td><input id="temperature_range"  value="0" type="range" min="-10" max="10"></td>
+                <td id="temp_offset_value">0 °C</td>
+            </tr>
+
+            <tr>
+                <td>CO₂ Offset</td>
+                <td><input id="carbon-range" type="range"  value="0" min="-5000" max="5000"></td>
+                <td id="co2_offset_value">0 ppm</td>
+            </tr>
+        </table>
+
+        <div>
+            <table>
+                <tr>
+                    <td>Tundra</td>
+                    <td style="background-color: rgb(255,255,255) "
+                        onmouseover="showIt('https://media.discordapp.net/attachments/860741516297633802/898976387027841134/tundraaa.png?width=856&height=595')"
+                        onmouseout="hideIt()">⠀
+                        ⠀
+                    </td>
+                    <td rowspan="9"><img src="" id="imageshow" class="helper_image" style="display:none"></td>
+                </tr>
+                <tr>
+                    <td>Boreal Forest</td>
+                    <td style="background-color: rgb(204,255,204) "
+                        onmouseover="showIt('https://media.discordapp.net/attachments/860741516297633802/898976648941158500/boreal-forest.jpg')"
+                        onmouseout="hideIt()"></td>
+                </tr>
+                <tr>
+                    <td>Temperate Grassland</td>
+                    <td style="background-color: rgb(153,255,153)"
+                        onmouseover="showIt('https://media.discordapp.net/attachments/860741516297633802/898976730251939850/temperate-grassland.jpg')"
+                        onmouseout="hideIt()"></td>
+                </tr>
+                <tr>
+                    <td>Woodland</td>
+                    <td style="background-color: rgb(127.5,204,127.5)"
+                        onmouseover="showIt('https://media.discordapp.net/attachments/860741516297633802/898976787474808884/woodland.jpg')"
+                        onmouseout="hideIt()"></td>
+                </tr>
+                <tr>
+                    <td>Temperate Seasonal Forest</td>
+                    <td style="background-color: rgb(153,204,153)"
+                        onmouseover="showIt('https://media.discordapp.net/attachments/860741516297633802/898976863685316698/temperate-seasonal_-forest.jpg')"
+                        onmouseout="hideIt()"></td>
+                </tr>
+                <tr>
+                    <td>Temperate Rainforest</td>
+                    <td style="background-color: rgb(102,178.5,102)"
+                        onmouseover="showIt('https://media.discordapp.net/attachments/860741516297633802/898976524311609344/rain-forest.jpg')"
+                        onmouseout="hideIt()"></td>
+                </tr>
+                <tr>
+                    <td>Tropical Rainforest</td>
+                    <td style="background-color: rgb(25.5,178.5,25.5)"
+                        onmouseover="showIt('https://media.discordapp.net/attachments/860741516297633802/898976524311609344/rain-forest.jpg')"
+                        onmouseout="hideIt()"></td>
+                </tr>
+
+                <tr>
+                    <td>Savannah</td>
+                    <td style="background-color: rgb(178.5,229.5,127.5)"
+                        onmouseover="showIt('https://media.discordapp.net/attachments/860741516297633802/898976935189823508/savannah.jpg')"
+                        onmouseout="hideIt()"></td>
+                </tr>
+                <tr>
+                    <td>Subtropical Desert</td>
+                    <td style="background-color: rgb(229.5,229.5,102)"
+                        onmouseover="showIt('https://media.discordapp.net/attachments/860741516297633802/898976587607834674/desert.jpg')"
+                        onmouseout="hideIt()"></td>
+                </tr>
+                <tr>
+                        <td><b>Double Click on the screen to enter driving mode! Controls: WSAD-LShift-Space</b></td>
+                </tr>
+            </table>
+
+        </div>
+        <br>
+        <div>
+            <table>
+
+                <tr>
+                    <td>Height:⠀⠀</td>
+                    <td id="height_view">900 ft</td>
+                </tr>
+                <tr>
+                    <td>Current Avg. Temperature</td>
+                    <td id="current_temperature_value">14 °C</td>
+                </tr>
+                <tr class="color_type_selection">
+                    <td>Render Type⠀⠀</td>
+                    <td>
+                        <select id="color_selector" onchange="onSelectColor()">
+                            <option value="0">Natural</option>
+                            <option value="1">Temperature Map</option>
+                            <option value="2">Precipitation Map</option>
+                        </select>
+
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+</div>
+<canvas id="c"></canvas>
+<style>
+    .floatable {
+        position: absolute;
+        width: 100%;
+    }
+
+    .menu-btn {
+        display: block;
+        height: 5%;
+        width: 5%;
+        border-radius: 50%;
+        opacity: 20%;
+    }
+
+    .menu-btn:hover {
+        opacity: 50%;
+    }
+
+    .helper_image {
+        height: 200px;
+        width: 200px;
+    }
+
+
+    .btn-img {
+
+        max-height: 100%;
+        max-width: 100%;
+    }
+
+
+    html, body {
+        margin: 0;
+        height: 100%;
+    }
+
+    #c {
+        width: 100%;
+        height: 100%;
+        display: block;
+    }
+
+    .color_type_selection {
+        opacity: 20%;
+    }
+
+    .color_type_selection:hover {
+        opacity: 80%;
+    }
+</style>
+
+<script>
+
+
+    window.onload = () => {
+        window.camera.lookAt(-12, 3, -450);
+    }
+
+    function getTemperatureDifference(year) {
+        return (.000000001 * ((year - 1823) ** 4)) - 1
+    }
+
+    document.getElementById("menu-button").onclick = () => {
+        const menu = document.getElementById("menu");
+        menu.hidden = !menu.hidden;
+    }
+
+    function setTemperature(x) {
+        window.inputs.temperatureOffset = x;
+        group.children.forEach(m => {
+            console.log(m.material.uniforms.uTemperatureOffset.value = x)
+        })
+    }
+
+    const defaultClimateFactors ={
+        temperature: 14,
+    }
+
+    function getCurrentClimateCoeefficient() {
+        const fromYear = getTemperatureDifference(document.getElementById("year_range").value);
+        const fromTemperatureAverage = parseInt(document.getElementById("temperature_range").value);
+        const fromCarbonAverage = parseInt(document.getElementById("carbon-range").value) / 1000;
+        return fromTemperatureAverage + fromYear + fromCarbonAverage;
+    }
+
+    function changeClimate() {
+        const coefficient = getCurrentClimateCoeefficient();
+        setTemperature(coefficient);
+        window.water.position.y = coefficient / 300;
+
+
+        const offsettedCoefficient = Math.ceil((coefficient+defaultClimateFactors.temperature)*100)/100;
+        document.getElementById("current_temperature_value").innerText = offsettedCoefficient+' °C';
+    }
+
+
+    function renderColorSelect(x) {
+        window.inputs.selectedRenderColor = x;
+        group.children.forEach(m => {
+            console.log(m.material.uniforms.uColorSelection.value = x);
+        })
+    }
+
+    function onSelectColor() {
+        const selected = document.getElementById("color_selector").selectedIndex;
+        renderColorSelect(selected);
+    }
+
+    document.getElementById("temperature_range").onchange = () => {
+
+        document.getElementById("temp_offset_value").innerText = document.getElementById("temperature_range").value + ' °C';
+        changeClimate();
+
+    }
+
+    document.getElementById("carbon-range").onchange = () => {
+
+        document.getElementById("co2_offset_value").innerText = document.getElementById("carbon-range").value + ' ppm';
+        changeClimate();
+
+    }
+
+
+    document.getElementById("year_range").onchange = () => {
+
+        document.getElementById("year_value").innerText = document.getElementById("year_range").value + ' AD';
+
+        changeClimate();
+
+
+    }
+
+
+    document.getElementById("year_range").value = 2000;
+
+    function showIt(link) {
+        console.log("Hover")
+        document.getElementById('imageshow').src = link;
+        document.getElementById('imageshow').style.display = 'block';
+    }
+
+    function hideIt() {
+        document.getElementById('imageshow').style.display = 'none';
+    }
+
+
+</script>
+
+</html>
+<script defer src="bundle.js"></script>
