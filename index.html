@@ -180,11 +180,6 @@
         return (.000000001 * ((year - 1823) ** 4)) - 1
     }
 
-    document.getElementById("menu-button").onclick = () => {
-        const menu = document.getElementById("menu");
-        menu.hidden = !menu.hidden;
-    }
-
     function setTemperature(x) {
         window.inputs.temperatureOffset = x;
         group.children.forEach(m => {
